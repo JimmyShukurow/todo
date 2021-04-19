@@ -17,12 +17,17 @@ $(function(){
                console.log(response);
                $details = '';
                for(var i =0; i< response.details.length; i++){
-                    $details += '<div class="todoList"><h3> '+response.details[i]['name']+'</h3><input type="hidden" value="{{$item->id}}" id="idOfDeailsItem"><input class="detailsOfTodoList" value="'
-                    +response.details[i]['description']+'" readonly><span class="deleteDetails">sil</span><span class="saveDetails">kaydet</span> <span class="editDetails"> duzenle</span></div>';
+                    $details += '<div class="todoList">'+
+                    '<h3>'+response.details[i]['name']+ '</h3>'+
+                    '<input type="hidden" value="'+response.details[i]['id']+'" id="idOfDeailsItem">'+
+                    '<input class="detailsOfTodoList" value="'+response.details[i]['description']+'"  readonly>'+
+                    ' <span class="deleteDetails">sil</span>'+
+                    '<span class="saveDetails">kaydet</span> '+
+                    '<span class="editDetails"> duzenle</span></div>';
                }
                $('.listOfThings').html($details);
-            //    $("#nameOfContent").val('');
-            //    $("#description").val('');
+               $("#nameOfContent").val('');
+               $("#description").val('');
                
             }
         });
@@ -62,14 +67,19 @@ $(function(){
                 console.log(response.status);
                 console.log(response.userName);
                 console.log(response.userId);
-                $welcomeText = '<section class="logout"> <a href="/logout"> logout </a></section><section class="welcome">Welcome <span class="userName">'
+                $welcomeText = '<section class="logout"> <a href="/logout"> Chikish yap </a></section><section class="welcome">  Hosh geldin <span class="userName">'
                 +response.userName+'</span></section> ';            
                 $('.partOne').html($welcomeText);
                 $details = '';
                for(var i =0; i< response.details.length; i++){
-                    $details += '<div class="todoList"><h3> '+response.details[i]['name']+'</h3><input type="hidden" value="{{$item->id}}" id="idOfDeailsItem"><input class="detailsOfTodoList" value="'
-                    +response.details[i]['description']+' " readonly><span class="deleteDetails">sil</span><span class="saveDetails">kaydet</span> <span class="editDetails"> duzenle</span></div>';
-               }
+                    $details += '<div class="todoList">'+
+                    '<h3>'+response.details[i]['name']+ '</h3>'+
+                    '<input type="hidden" value="'+response.details[i]['id']+'" id="idOfDeailsItem">'+
+                    '<input class="detailsOfTodoList" value="'+response.details[i]['description']+'"  readonly>'+
+                    ' <span class="deleteDetails">sil</span>'+
+                    '<span class="saveDetails">kaydet</span> '+
+                    '<span class="editDetails"> duzenle</span></div>';
+                }
                $('.listOfThings').html($details);
                }
             }
@@ -87,13 +97,15 @@ $(function(){
             }
         });
     })
-    $('.editDetails').on('click', function(){
+    $('.editDetails').on('click', function(e){
+        e.preventDefault();
         $oneBefore = $(this).prev();
         $twoBefore = $oneBefore.prev();
         $twoBefore.prev().removeAttr('readonly').focus();
-    })
-    
-    $('.deleteDetails').on('click',function(){
+    }),
+
+    $('.deleteDetails').on('click',function(e){
+        e.preventDefault();
         $oneBefore = $(this).prev();
         $id = $oneBefore.prev().val();
         console.log($id);
@@ -109,6 +121,76 @@ $(function(){
         })
 
     })
+    $('.saveDetails').on('click',function(e){
+        e.preventDefault();
+        $oneBefore = $(this).prev();
+        $oneMoreBefore = $oneBefore.prev();
+        $id = $oneMoreBefore.prev().val();
+        $details = $oneMoreBefore.val()
+        console.log($id);
+        console.log($details);
+        $oneMoreBefore.prop('readonly', true);
+        
+        $.ajax({
+            type:"post",
+            url:"/saveDetails",
+            data:{"id":$id, "description":$details},
+            dataType:"json",
+            success: function(response){
+                console.log(response);
+            }
+        })
+
+    })
 
 })
 
+$( document ).ajaxStop(function() {
+
+    //your code
+    $('.editDetails').on('click', function(e){
+        e.preventDefault();
+        $oneBefore = $(this).prev();
+        $twoBefore = $oneBefore.prev();
+        $twoBefore.prev().removeAttr('readonly').focus();
+    }),
+
+    $('.deleteDetails').on('click',function(e){
+        e.preventDefault();
+        $oneBefore = $(this).prev();
+        $id = $oneBefore.prev().val();
+        console.log($id);
+        $oneBefore.parent().remove();
+        $.ajax({
+            type:"post",
+            url:"/deleteDetails",
+            data:{"id":$id},
+            dataType:"json",
+            success: function(response){
+                console.log(response);
+            }
+        })
+
+    })
+    $('.saveDetails').on('click',function(e){
+        e.preventDefault();
+        $oneBefore = $(this).prev();
+        $oneMoreBefore = $oneBefore.prev();
+        $id = $oneMoreBefore.prev().val();
+        $details = $oneMoreBefore.val()
+        console.log($id);
+        console.log($details);
+        $oneMoreBefore.prop('readonly', true);
+        
+        $.ajax({
+            type:"post",
+            url:"/saveDetails",
+            data:{"id":$id, "description":$details},
+            dataType:"json",
+            success: function(response){
+                console.log(response);
+            }
+        })
+
+    })
+})

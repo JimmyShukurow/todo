@@ -3,7 +3,7 @@
     <div class="partOne">
         @if (Auth::check())
         <section class="logout">
-            <a href="/logout"> Chikish yop </a>
+            <a href="/logout"> Chikish yap </a>
             
         </section>
         <section class="welcome">

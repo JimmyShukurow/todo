@@ -61,4 +61,14 @@ class AjaxController extends Controller
        DetailsOfList::where("id", $request->id)->delete();
        return response()->json("success",200);
    }
+   public function saveDetails(Request $request){
+    $details = DetailsOfList::find($request->id);
+    // $user = Auth::user();
+    // $details->user_id = $user->id;
+    // $details->name = $request->nameOfContent;
+    $details->description = $request->description;
+    $details->save();
+    
+    return response()->json("success", 200);
+}
 }
