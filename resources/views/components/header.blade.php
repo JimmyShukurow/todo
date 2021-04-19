@@ -7,7 +7,7 @@
             
         </section>
         <section class="welcome">
-            Welcome <span class="userName"></span>
+            Welcome <span class="userName">{{$user->name}}</span>
         </section>
         @else
         <section class="register">

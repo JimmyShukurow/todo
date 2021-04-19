@@ -30,7 +30,7 @@ label {
     margin-bottom: 0.3vw;
 }
 
- input, button, textarea {
+ form>input, button, textarea {
     display: block;
     margin: auto;
     margin-bottom: 5px;
@@ -87,7 +87,27 @@ label {
  }
  a {
      text-decoration: none;
+     color: inherit;
  }
  /* end of header */
+ /* list of details */
+ .editDetails, .saveDetails {
+     padding: 5px;
+     background-color: brown;
+     float: right;
+     margin-right: 10px;
+     color: aliceblue;
+     border-radius: 5px;
+ }
+ .editDetails:hover, .saveDetails:hover {
+    background-color: green;
+    cursor: pointer;
+    color: #ffffff;
+ }
+ input.detailsOfTodoList {
+     width: 70%;
+     height: 40px;
+ }
+ /* end of list of details */
 
  

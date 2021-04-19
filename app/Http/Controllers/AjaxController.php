@@ -14,14 +14,16 @@ class AjaxController extends Controller
     //
 
     public function save(Request $request){
+        $data =[];
         $details = new DetailsOfList();
         $user = Auth::user();
         $details->user_id = $user->id;
         $details->name = $request->nameOfContent;
         $details->description = $request->description;
         $details->save();
+        $data['details'] = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
         
-        return response()->json('success', 200);
+        return response()->json($data, 200);
     }
     
     public function login(Request $request){
@@ -32,6 +34,8 @@ class AjaxController extends Controller
             $user = Auth::user();
             $data["userName"] = $user->name;
             $data["userId"] = $user->id;
+             $data['details'] = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
+
            return response()->json($data, 200);
             
         }

@@ -8,8 +8,6 @@ $(function(){
 
     $('#addContentToList').on('submit', function(e){
         e.preventDefault();
-        var name = $('#nameOfContent').val();
-        var description = $('#description').val();
         $.ajax({
             type: "post",
             url: "/addingToList",
@@ -17,6 +15,13 @@ $(function(){
             dataType: "json",
             success: function (response) {
                console.log(response);
+               $details = '';
+               for(var i =0; i< response.details.length; i++){
+                    $details += '<div class="todoList"><h3> '+response.details[i]['name']+'</h3><input type="hidden" value="{{$item->id}}" id="idOfDeailsItem"><input class="detailsOfTodoList" value="'
+                    +response.details[i]['description']+'" readonly><span class="saveDetails">kaydet</span> <span class="editDetails"> duzenle</span></div>';
+               }
+               $('.listOfThings').html($details);
+               
             }
         });
         return false;
@@ -55,8 +60,15 @@ $(function(){
                 console.log(response.status);
                 console.log(response.userName);
                 console.log(response.userId);
-                $welcomeText = '<section class="logout"> <a href="/logout"> logout </a></section><section class="welcome">Welcome <span class="userName">'+response.userName+'</span></section> ';            
+                $welcomeText = '<section class="logout"> <a href="/logout"> logout </a></section><section class="welcome">Welcome <span class="userName">'
+                +response.userName+'</span></section> ';            
                 $('.partOne').html($welcomeText);
+                $details = '';
+               for(var i =0; i< response.details.length; i++){
+                    $details += '<div class="todoList"><h3> '+response.details[i]['name']+'</h3><input type="hidden" value="{{$item->id}}" id="idOfDeailsItem"><input class="detailsOfTodoList" value="'
+                    +response.details[i]['description']+' " readonly><span class="saveDetails">kaydet</span> <span class="editDetails"> duzenle</span></div>';
+               }
+               $('.listOfThings').html($details);
                }
             }
         });
