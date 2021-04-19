@@ -57,5 +57,8 @@ class AjaxController extends Controller
         $user ->save();
         return response()->json('success',200);
     }
-   
+   public function deleteDetails(Request $request){
+       DetailsOfList::where("id", $request->id)->delete();
+       return response()->json("success",200);
+   }
 }

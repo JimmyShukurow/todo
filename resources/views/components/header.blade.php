@@ -3,11 +3,11 @@
     <div class="partOne">
         @if (Auth::check())
         <section class="logout">
-            <a href="/logout"> logout </a>
+            <a href="/logout"> Chikish yop </a>
             
         </section>
         <section class="welcome">
-            Welcome <span class="userName">{{$user->name}}</span>
+            Hosh geldin <span class="userName">{{$user->name}}</span>
         </section>
         @else
         <section class="register">

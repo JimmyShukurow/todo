@@ -21,3 +21,4 @@ Route::get('/logout', [HomeController::class, 'logout']);
 Route::post('/addingToList', [AjaxController::class, 'save'] )->name('addToList'); 
 Route::post('/login', [AjaxController::class, 'login']);
 Route::post('/register', [AjaxController::class, 'register']);
+Route::post('/deleteDetails',[AjaxController::class, 'deleteDetails']);

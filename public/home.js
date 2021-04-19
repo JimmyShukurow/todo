@@ -21,6 +21,8 @@ $(function(){
                     +response.details[i]['description']+'" readonly><span class="deleteDetails">sil</span><span class="saveDetails">kaydet</span> <span class="editDetails"> duzenle</span></div>';
                }
                $('.listOfThings').html($details);
+            //    $("#nameOfContent").val('');
+            //    $("#description").val('');
                
             }
         });
@@ -85,16 +87,26 @@ $(function(){
             }
         });
     })
-    $('.editDetails').click(function(){
+    $('.editDetails').on('click', function(){
         $oneBefore = $(this).prev();
         $twoBefore = $oneBefore.prev();
         $twoBefore.prev().removeAttr('readonly').focus();
     })
     
-    $('.deleteDetails').click(function(){
+    $('.deleteDetails').on('click',function(){
         $oneBefore = $(this).prev();
         $id = $oneBefore.prev().val();
         console.log($id);
+        $oneBefore.parent().remove();
+        $.ajax({
+            type:"post",
+            url:"/deleteDetails",
+            data:{"id":$id},
+            dataType:"json",
+            success: function(response){
+                console.log(response);
+            }
+        })
 
     })
 
