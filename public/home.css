@@ -91,7 +91,7 @@ label {
  }
  /* end of header */
  /* list of details */
- .editDetails, .saveDetails {
+ .editDetails, .saveDetails,.deleteDetails {
      padding: 5px;
      background-color: brown;
      float: right;
@@ -99,7 +99,7 @@ label {
      color: aliceblue;
      border-radius: 5px;
  }
- .editDetails:hover, .saveDetails:hover {
+ .editDetails:hover, .saveDetails:hover, .deleteDetails:hover  {
     background-color: green;
     cursor: pointer;
     color: #ffffff;

@@ -18,7 +18,7 @@ $(function(){
                $details = '';
                for(var i =0; i< response.details.length; i++){
                     $details += '<div class="todoList"><h3> '+response.details[i]['name']+'</h3><input type="hidden" value="{{$item->id}}" id="idOfDeailsItem"><input class="detailsOfTodoList" value="'
-                    +response.details[i]['description']+'" readonly><span class="saveDetails">kaydet</span> <span class="editDetails"> duzenle</span></div>';
+                    +response.details[i]['description']+'" readonly><span class="deleteDetails">sil</span><span class="saveDetails">kaydet</span> <span class="editDetails"> duzenle</span></div>';
                }
                $('.listOfThings').html($details);
                
@@ -66,7 +66,7 @@ $(function(){
                 $details = '';
                for(var i =0; i< response.details.length; i++){
                     $details += '<div class="todoList"><h3> '+response.details[i]['name']+'</h3><input type="hidden" value="{{$item->id}}" id="idOfDeailsItem"><input class="detailsOfTodoList" value="'
-                    +response.details[i]['description']+' " readonly><span class="saveDetails">kaydet</span> <span class="editDetails"> duzenle</span></div>';
+                    +response.details[i]['description']+' " readonly><span class="deleteDetails">sil</span><span class="saveDetails">kaydet</span> <span class="editDetails"> duzenle</span></div>';
                }
                $('.listOfThings').html($details);
                }
@@ -85,5 +85,18 @@ $(function(){
             }
         });
     })
+    $('.editDetails').click(function(){
+        $oneBefore = $(this).prev();
+        $twoBefore = $oneBefore.prev();
+        $twoBefore.prev().removeAttr('readonly').focus();
+    })
+    
+    $('.deleteDetails').click(function(){
+        $oneBefore = $(this).prev();
+        $id = $oneBefore.prev().val();
+        console.log($id);
+
+    })
+
 })
 
