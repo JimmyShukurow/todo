@@ -3,7 +3,7 @@
 }
 body {
     background-color: aqua;
-    margin: 5%;
+    margin: 2%;
 }
 .searchingForm, .addContent {
     display: block;
@@ -39,18 +39,55 @@ label {
     border-radius: 5px;
  }
  /* Header */
- .signIn, .register {
+ .overlay {
+     display: none;
+     position: fixed;
+     filter: blur(5px);
+     z-index: 2;
+     top: 0;
+     left: 0;
+     height: 100%;
+     width: 100%;
+     background-color: rgba(255, 255, 255, .15);
+     backdrop-filter: blur(5px);
+ }
+ .signIn, .register, .welcome, .logout {
      display: inline;
      float: right;
      padding: 5px;
      border: 2px solid rgb(245, 242, 242);
      border-radius: 10px;
      margin: 5px;
+     z-index: 5;
  }
- .signIn:hover, .register:hover {
+ #signInForm, #registerForm{
+     padding: 5px;
+     background-color: blue;
+     border-radius:10px ;
+     color: aliceblue;
+
+ }
+ .signIn:hover, .register:hover, .logout:hover {
      color: aliceblue;
      background-color:black;
      border-color: black;
  }
+ .header {
+     margin-bottom: 25px;
+ }
+ .modalForSingIn, .modalForRegister {
+     display: block;
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     transform: translate(-50%, -50%);
+     width: 300px;
+     height: 200px;
+     z-index: 3;
+ }
+ a {
+     text-decoration: none;
+ }
+ /* end of header */
 
  

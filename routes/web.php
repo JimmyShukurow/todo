@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AjaxController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Home page route
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/logout', [HomeController::class, 'logout']);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Ajax functions
+Route::post('/addingToList', [AjaxController::class, 'save'] )->name('addToList'); 
+Route::post('/login', [AjaxController::class, 'login']);
+Route::post('/register', [AjaxController::class, 'register']);
