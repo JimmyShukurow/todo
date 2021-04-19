@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: aqua;
+    margin: 5%;
+}
+.searchingForm, .addContent {
+    display: block;
+    margin: auto;
+    background-color: aliceblue;
+    box-shadow: 0 0 3px 2px grey;
+    border-radius: 20px;
+}
+.searchingForm {
+    width: 300px;
+    height: 100px;
+}
+.addContent {
+    width: 300px;
+    height: 200px;
+}
+form{
+    margin-top: 1vw;
+    margin-bottom: 1vw  ;
+}
+label {
+    display: block;
+    text-align: center;
+    margin-bottom: 0.3vw;
+}
+
+ input, button, textarea {
+    display: block;
+    margin: auto;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid green;
+    border-radius: 5px;
+ }
+ /* Header */
+ .signIn, .register {
+     display: inline;
+     float: right;
+     padding: 5px;
+     border: 2px solid rgb(245, 242, 242);
+     border-radius: 10px;
+     margin: 5px;
+ }
+ .signIn:hover, .register:hover {
+     color: aliceblue;
+     background-color:black;
+     border-color: black;
+ }
+
+ 
