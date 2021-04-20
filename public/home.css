@@ -14,11 +14,11 @@ body {
 }
 .searchingForm {
     width: 300px;
-    height: 100px;
+    height: 130px;
 }
 .addContent {
     width: 300px;
-    height: 200px;
+    height: 230px;
 }
 form{
     margin-top: 1vw;
@@ -37,6 +37,12 @@ label {
     padding: 5px;
     border: 1px solid green;
     border-radius: 5px;
+ }
+ p {
+     color:red;
+     display: flex;
+     justify-content: center;
+     visibility: hidden;
  }
  /* Header */
  .overlay {

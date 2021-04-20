@@ -23,11 +23,12 @@
     <br>
     <div class="modalForSingIn" style="display: none">
         <form id="signInForm" >
-            <label for="emailOfUser">Isminiz</label>
+            <label for="emailOfUser">Mail adresiniz</label>
             <input type="text" id="emailOfUser" name="emailOfUser" required>
             <label for="password">Shifreniz</label>
             <input type="password" id="password" name="password" required>
             <button type="submit">Hadi bakalim</button>
+            <p class="warningSignInForm">Bir hataniz var</p>
             <button class="closeSignInForm"> Kapat</button>
         </form>
     </div>

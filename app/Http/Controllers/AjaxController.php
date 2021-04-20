@@ -16,25 +16,45 @@ class AjaxController extends Controller
     public function save(Request $request){
         $data =[];
         $details = new DetailsOfList();
-        $user = Auth::user();
-        $details->user_id = $user->id;
-        $details->name = $request->nameOfContent;
-        $details->description = $request->description;
-        $details->save();
-        $data['details'] = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
-        
-        return response()->json($data, 200);
+        if(Auth::check()){
+            $request->validate([
+                'nameOfContent'=>'required',
+                'description'=>'required',
+            ]);
+            $user = Auth::user();
+            $details->user_id = $user->id;
+            $details->name = $request->nameOfContent;
+            $details->description = $request->description;
+            $details->save();
+            $data['details'] = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
+            $data['status'] = 'success';
+            return response()->json($data, 200);
+        }
+        else{
+            $data['status'] = 'failure';
+            return response()->json($data, 200);
+            
+        }
     }
     
     public function login(Request $request){
         $data = [];
         if (Auth::attempt(['email' => $request->emailOfUser, 'password' => $request->password])) {
             // Authentication was successful...
+            $request->validate([
+                'emailOfUser'=>'required',
+                'password' =>'required',
+            ]);
             $data["status"] = "success";
             $user = Auth::user();
             $data["userName"] = $user->name;
             $data["userId"] = $user->id;
-             $data['details'] = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
+            if($user->role == 'admin'){
+                $data['details'] = DetailsOfList::all();
+            }
+            else{
+            $data['details'] = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
+            }
 
            return response()->json($data, 200);
             
@@ -48,7 +68,8 @@ class AjaxController extends Controller
          $request->validate([
             'registerName' => 'required',
             'email' => 'required',
-            'registerPassword' => 'required'
+            'registerPassword' => 'required',
+            'retyperegisterPassword' => 'required',
         ]);
         $user = new User();
         $user->name = $request-> registerName;
@@ -63,9 +84,6 @@ class AjaxController extends Controller
    }
    public function saveDetails(Request $request){
         $details = DetailsOfList::find($request->id);
-        // $user = Auth::user();
-        // $details->user_id = $user->id;
-        // $details->name = $request->nameOfContent;
         $details->description = $request->description;
         $details->save();
         
