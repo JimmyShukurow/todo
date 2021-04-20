@@ -85,8 +85,12 @@ class AjaxController extends Controller
                    });
                    
             $data['searchResult'] = $search->get();
+            $data['status']= 'success';
             
             return response()->json($data,200);
+        }
+        else{
+            return response()->json('failure',200);
         }
 
     }
