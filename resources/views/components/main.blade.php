@@ -1,6 +1,6 @@
 <div class="main">
     <div class="searchingForm">
-        <form action="" method="get">
+        <form id="searchForm">
             <label for="search"> Ara </label>
             <input type="text" placeholder="Aramak istedigin kelimeyi yaz" id="search" name="search">
             <button type="submit"> Bul </button>

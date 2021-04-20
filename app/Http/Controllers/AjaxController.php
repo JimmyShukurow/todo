@@ -62,13 +62,32 @@ class AjaxController extends Controller
        return response()->json("success",200);
    }
    public function saveDetails(Request $request){
-    $details = DetailsOfList::find($request->id);
-    // $user = Auth::user();
-    // $details->user_id = $user->id;
-    // $details->name = $request->nameOfContent;
-    $details->description = $request->description;
-    $details->save();
-    
-    return response()->json("success", 200);
-}
+        $details = DetailsOfList::find($request->id);
+        // $user = Auth::user();
+        // $details->user_id = $user->id;
+        // $details->name = $request->nameOfContent;
+        $details->description = $request->description;
+        $details->save();
+        
+        return response()->json("success", 200);
+    }
+    public function searchDetails(Request $request){
+        if(Auth::check()){
+            $data = [];
+            $user_id = Auth::user()->id;
+            $search = DetailsOfList ::
+            join('users', 'users.id','=','details_of_lists.user_id')
+                ->select('details_of_lists.description','details_of_lists.name','details_of_lists.id');
+            $search->where('details_of_lists.user_id','=',$user_id)
+                   ->where(function($query){
+                    $searchquery = \request()->get('query');
+                        $query->where('details_of_lists.description','like','%'.$searchquery.'%');
+                   });
+                   
+            $data['searchResult'] = $search->get();
+            
+            return response()->json($data,200);
+        }
+
+    }
 }

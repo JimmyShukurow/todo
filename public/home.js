@@ -142,6 +142,32 @@ $(function(){
         })
 
     })
+    $('#searchForm').on('submit',function(e){
+        e.preventDefault();
+        var searchThis = $('#search').val();
+        $.ajax({
+            type:"post",
+            url:"/search",
+            data: {"query":searchThis},
+            dataType:"json",
+            success:function(response){
+                
+                console.log(response.searchResult[0]['description']);
+                $details = '';
+                for(var i =0; i< response.searchResult.length; i++){
+                     $details += '<div class="todoList">'+
+                     '<h3>'+response.searchResult[i]['name']+ '</h3>'+
+                     '<input type="hidden" value="'+response.searchResult[i]['id']+'" id="idOfDeailsItem">'+
+                     '<input class="detailsOfTodoList" value="'+response.searchResult[i]['description']+'"  readonly>'+
+                     ' <span class="deleteDetails">sil</span>'+
+                     '<span class="saveDetails">kaydet</span> '+
+                     '<span class="editDetails"> duzenle</span></div>';
+                 }
+                $('.listOfThings').html($details);
+                
+            }
+        })
+    })
 
 })
 
