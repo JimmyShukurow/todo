@@ -26,7 +26,11 @@ class AjaxController extends Controller
             $details->name = $request->nameOfContent;
             $details->description = $request->description;
             $details->save();
-            $data['details'] = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->paginate(10);
+            $detailsOfList = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
+            if($details->count() > 10){
+                $detailsOfList = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->paginate(10);
+            }
+            $data['details'] = $detailsOfList;
             $data['status'] = 'success';
             return response()->json($data, 200);
         }

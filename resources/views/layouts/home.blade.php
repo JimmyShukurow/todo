@@ -6,8 +6,8 @@
     @include('components.main')
     @include('components.list')
     <div class="pagination">
-        @if (Auth::check())
-        {!! $details->links() !!}
+        @if (Auth::check() and $details->count() > 10){
+            {!! $details->links() !!}
         @endif
     </div>
 </body>

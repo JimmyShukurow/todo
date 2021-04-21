@@ -14,11 +14,18 @@ class HomeController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             if($user->role == 'admin'){
-                $details = DetailsOfList::paginate(10);
+                $details = DetailsOfList::all();
+                if($details->count() > 10){
+                    $details = DetailsOfList::paginate(10);
+                }
                 return view('layouts.home', compact('details','user'));
             }
             else{
-                $details = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->paginate(10);
+                
+                $details = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
+                if($details->count() > 10){
+                    $details = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->paginate(10);
+                }
                 return view('layouts.home', compact('details','user'));
             }
         }
