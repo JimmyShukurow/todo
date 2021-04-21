@@ -13,9 +13,14 @@ class HomeController extends Controller
     public function home(){
         if(Auth::check()){
             $user = Auth::user();
-            $details = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
-            // $details = 2;
-            return view('layouts.home', compact('details','user'));
+            if($user->role == 'admin'){
+                $details = DetailsOfList::paginate(10);
+                return view('layouts.home', compact('details','user'));
+            }
+            else{
+                $details = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->paginate(10);
+                return view('layouts.home', compact('details','user'));
+            }
         }
         else{
             return view('layouts.home');

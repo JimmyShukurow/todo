@@ -15,7 +15,7 @@ class CreateDetailsOfListsTable extends Migration
     {
         Schema::create('details_of_lists', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
             $table->char('name',255);
             $table->char('description',255);
             $table->timestamps();

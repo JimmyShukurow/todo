@@ -115,5 +115,14 @@ label {
      height: 40px;
  }
  /* end of list of details */
+ .pagination {
+     list-style-type: none;
+     padding: 10px;
+     display: flex;
+     justify-content: center;
+     letter-spacing: 20px;
+     font-size: 30px;
+     color: brown;
+ }
 
  

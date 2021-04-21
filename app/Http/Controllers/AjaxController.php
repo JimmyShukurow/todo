@@ -26,7 +26,7 @@ class AjaxController extends Controller
             $details->name = $request->nameOfContent;
             $details->description = $request->description;
             $details->save();
-            $data['details'] = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
+            $data['details'] = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->paginate(10);
             $data['status'] = 'success';
             return response()->json($data, 200);
         }
@@ -50,10 +50,12 @@ class AjaxController extends Controller
             $data["userName"] = $user->name;
             $data["userId"] = $user->id;
             if($user->role == 'admin'){
-                $data['details'] = DetailsOfList::all();
+                $data['details'] = DetailsOfList::paginate(10);
             }
             else{
-            $data['details'] = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC')->get();
+                $details = DetailsOfList::where('user_id',$user->id)->orderBy('id','DESC');
+                $details->paginate(10);
+            $data['details'] = $details;
             }
 
            return response()->json($data, 200);
@@ -92,17 +94,27 @@ class AjaxController extends Controller
     public function searchDetails(Request $request){
         if(Auth::check()){
             $data = [];
-            $user_id = Auth::user()->id;
+            $user = Auth::user();
+            $user_id = $user->id;
             $search = DetailsOfList ::
             join('users', 'users.id','=','details_of_lists.user_id')
                 ->select('details_of_lists.description','details_of_lists.name','details_of_lists.id');
-            $search->where('details_of_lists.user_id','=',$user_id)
-                   ->where(function($query){
+            if($user->role == 'admin'){
+                $search->where(function($query){
                     $searchquery = \request()->get('query');
                         $query->where('details_of_lists.description','like','%'.$searchquery.'%');
                    });
+            }
+            else{
+                $search->where('details_of_lists.user_id','=',$user_id)
+                ->where(function($query){
+                 $searchquery = \request()->get('query');
+                     $query->where('details_of_lists.description','like','%'.$searchquery.'%');
+                });
+            }
+           
                    
-            $data['searchResult'] = $search->get();
+            $data['searchResult'] = $search->paginate(10);
             $data['status']= 'success';
             
             return response()->json($data,200);
