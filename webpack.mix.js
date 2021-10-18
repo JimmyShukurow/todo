@@ -15,3 +15,9 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]).vue();
+
+// mix.browserSync({
+//         proxy: 'something.test',
+//         host: 'something.test',
+//         open: 'external'
+//     });
