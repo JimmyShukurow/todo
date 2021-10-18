@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AjaxController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +15,15 @@ use App\Http\Controllers\AjaxController;
 |
 */
 // Home page route
-Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::get('/logout', [HomeController::class, 'logout']);
+Route::get('/', function () {
+    return view('welcome');
+});
+// Route::get('/logout', [HomeController::class, 'logout']);
 
 // Ajax functions
-Route::post('/addingToList', [AjaxController::class, 'save'] )->name('addToList'); 
-Route::post('/login', [AjaxController::class, 'login']);
-Route::post('/register', [AjaxController::class, 'register']);
-Route::post('/deleteDetails',[AjaxController::class, 'deleteDetails']);
-Route::post('/saveDetails',[AjaxController::class, 'saveDetails']);
-Route::post('/search',[AjaxController::class, 'searchDetails']);
+// Route::post('/addingToList', [AjaxController::class, 'save'])->name('addToList');
+// Route::post('/login', [AjaxController::class, 'login']);
+// Route::post('/register', [AjaxController::class, 'register']);
+// Route::post('/deleteDetails', [AjaxController::class, 'deleteDetails']);
+// Route::post('/saveDetails', [AjaxController::class, 'saveDetails']);
+// Route::post('/search', [AjaxController::class, 'searchDetails']);
